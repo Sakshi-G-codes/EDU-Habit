@@ -24,3 +24,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(5000, () => console.log("Server running on port 5000"));
+
+/* this file is created by the command npm init -y, npm-> node package manager, init-> initialize, -y-> yes to all default options */

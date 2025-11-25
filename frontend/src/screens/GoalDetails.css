@@ -1,0 +1,117 @@
+.goal-details-screen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.goal-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.goal-description {
+  color: #666;
+  line-height: 1.6;
+  margin: 16px 0;
+}
+
+.goal-meta {
+  display: flex;
+  gap: 24px;
+  margin: 20px 0;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-label {
+  font-size: 12px;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.meta-value {
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tasks-header h3 {
+  font-size: 20px;
+  color: #333;
+}
+
+.task-input-form {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.task-input-form input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.task-input-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.task-input-actions button {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.no-tasks {
+  text-align: center;
+  color: #999;
+  padding: 40px 20px;
+  font-style: italic;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.task-item:hover {
+  background: #e9ecef;
+}
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  color: #999;
+}

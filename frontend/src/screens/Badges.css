@@ -1,0 +1,73 @@
+.badges-screen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #faf5ff 0%, #fff5f8 100%);
+}
+
+.badges-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.badge-card {
+  text-align: center;
+  padding: 24px 16px;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.badge-card.unlocked {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+}
+
+.badge-card.locked {
+  opacity: 0.6;
+}
+
+.badge-card:hover {
+  transform: translateY(-4px);
+}
+
+.badge-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.badge-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.badge-description {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.badge-date {
+  font-size: 11px;
+  color: #999;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.badge-lock {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .badges-grid {
+    grid-template-columns: 1fr;
+  }
+}

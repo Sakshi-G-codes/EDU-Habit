@@ -3,15 +3,27 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Dashboard.css';
 
-function Dashboard({ user, onLogout }) {
+function Dashboard({ user }) {
   const navigate = useNavigate();
-  const [stats, setStats] = useState({ streak: 0, todayStudyTime: 0, tasksCompleted: 0 });
+  const [stats, setStats] = useState({ 
+    streak: 0, 
+    todayStudyTime: 0, 
+    tasksCompleted: 0, 
+    activeGoals: 0,
+    checkedInToday: false 
+  });
   const [quote] = useState("The secret of getting ahead is getting started.");
   const [checkedIn, setCheckedIn] = useState(false);
 
   useEffect(() => {
     fetchStats();
   }, []);
+
+  useEffect(() => {
+    if (stats.checkedInToday) {
+      setCheckedIn(true);
+    }
+  }, [stats]);
 
   const fetchStats = async () => {
     try {
@@ -32,6 +44,7 @@ function Dashboard({ user, onLogout }) {
       fetchStats();
     } catch (err) {
       console.error('Error checking in:', err);
+      alert('Failed to check in. Please try again.');
     }
   };
 
@@ -50,28 +63,39 @@ function Dashboard({ user, onLogout }) {
             <h1>Hello, {user.name}! 👋</h1>
             <p className="date">{today}</p>
           </div>
-          <button className="btn-logout" onClick={onLogout}>Logout</button>
-        </div>
-
-        <div className="streak-card card">
-          <div className="streak-content">
-            <div className="streak-icon">🔥</div>
-            <div>
-              <h2 style={{ color: "black" }}>{stats.streak}-day streak</h2>
-              <p style={{ color: "black" }}>Keep it going!</p>
+          <div className="header-icons">
+            <div 
+              className="streak-badge" 
+              onClick={() => navigate('/checkin')}
+              title={`${stats.streak}-day streak`}
+            >
+              <span className={`fire-icon ${stats.streak > 0 ? 'active' : 'inactive'}`}>🔥</span>
+              {stats.streak > 0 && <span className="streak-number">{stats.streak}</span>}
+            </div>
+            <div 
+              className="profile-badge" 
+              onClick={() => navigate('/profile')}
+              title="Profile"
+            >
+              <span className="profile-icon">{user.name.charAt(0).toUpperCase()}</span>
             </div>
           </div>
         </div>
 
         {!checkedIn && (
-          <button className="checkin-btn btn btn-primary" onClick={handleCheckIn}>
-            ✓ Mark Today as Completed
+          <button className="checkin-btn-main" onClick={handleCheckIn}>
+            <span className="checkin-icon">✓</span>
+            <div className="checkin-text">
+              <span className="checkin-title">Mark Today as Completed</span>
+              <span className="checkin-subtitle">Keep your streak going!</span>
+            </div>
           </button>
         )}
 
         {checkedIn && (
           <div className="success-message">
-            ✓ Great job! You've checked in today
+            <span className="success-icon">🎉</span>
+            <span>Great job! You've checked in today</span>
           </div>
         )}
 
@@ -85,6 +109,16 @@ function Dashboard({ user, onLogout }) {
             <div className="stat-icon">⏱️</div>
             <h3>{stats.todayStudyTime}m</h3>
             <p>Today's Study Time</p>
+          </div>
+          <div className="stat-card card">
+            <div className="stat-icon">🎯</div>
+            <h3>{stats.activeGoals || 0}</h3>
+            <p>Active Goals</p>
+          </div>
+          <div className="stat-card card">
+            <div className="stat-icon">🏆</div>
+            <h3>{stats.totalBadges || 0}</h3>
+            <p>Total Badges</p>
           </div>
         </div>
 

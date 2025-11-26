@@ -10,38 +10,66 @@ import CheckIn from './screens/CheckIn';
 import StudySession from './screens/StudySession';
 import Badges from './screens/Badges';
 import Notifications from './screens/Notifications';
+import Profile from './screens/Profile';
 import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
   const [showOnboarding, setShowOnboarding] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
+    // Load user data from localStorage on mount
+    const savedUser = localStorage.getItem('eduhabit_user');
+    const hasSeenOnboarding = localStorage.getItem('eduhabit_onboarding');
     
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (err) {
+        console.error('Error parsing user data:', err);
+        localStorage.removeItem('eduhabit_user');
+      }
     }
-    if (hasSeenOnboarding) {
+    
+    if (hasSeenOnboarding === 'true') {
       setShowOnboarding(false);
     }
+    
+    setLoading(false);
   }, []);
 
   const handleLogin = (userData) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('eduhabit_user', JSON.stringify(userData));
   };
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem('eduhabit_user');
   };
 
   const completeOnboarding = () => {
     setShowOnboarding(false);
-    localStorage.setItem('hasSeenOnboarding', 'true');
+    localStorage.setItem('eduhabit_onboarding', 'true');
   };
+
+  if (loading) {
+    return (
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      }}>
+        <div style={{ textAlign: 'center', color: 'white' }}>
+          <div style={{ fontSize: '60px', marginBottom: '16px' }}>📚</div>
+          <h2>Loading EDU-HABIT...</h2>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Router>
@@ -77,6 +105,9 @@ function App() {
           } />
           <Route path="/notifications" element={
             user ? <Notifications user={user} /> : <Navigate to="/login" />
+          } />
+          <Route path="/profile" element={
+            user ? <Profile user={user} onLogout={handleLogout} /> : <Navigate to="/login" />
           } />
         </Routes>
       </div>

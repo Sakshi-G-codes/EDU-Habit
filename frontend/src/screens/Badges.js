@@ -9,7 +9,7 @@ function Badges({ user }) {
 
   useEffect(() => {
     fetchBadges();
-  }, []);
+  }, [user.id]);
 
   const fetchBadges = async () => {
     try {
@@ -17,15 +17,6 @@ function Badges({ user }) {
       setBadges(response.data);
     } catch (err) {
       console.error('Error fetching badges:', err);
-      // Set default badges if none exist
-      setBadges([
-        { id: 1, name: 'First Step', description: 'Complete your first check-in', icon: '🎯', unlocked: false },
-        { id: 2, name: 'Week Warrior', description: 'Maintain a 7-day streak', icon: '🔥', unlocked: false },
-        { id: 3, name: 'Study Master', description: 'Complete 10 study sessions', icon: '📚', unlocked: false },
-        { id: 4, name: 'Goal Getter', description: 'Complete your first goal', icon: '🏆', unlocked: false },
-        { id: 5, name: 'Consistency King', description: 'Maintain a 30-day streak', icon: '👑', unlocked: false },
-        { id: 6, name: 'Task Champion', description: 'Complete 50 tasks', icon: '✅', unlocked: false }
-      ]);
     }
   };
 

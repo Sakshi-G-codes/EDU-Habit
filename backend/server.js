@@ -10,7 +10,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "Ilovepotatos5&5",
+  password: process.env.DB_PASSWORD || "Sakshi@1922",
   database: process.env.DB_NAME || "eduhabit"
 });
 
